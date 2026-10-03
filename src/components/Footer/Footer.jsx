@@ -1,10 +1,13 @@
 import React from 'react';
-import { ArrowUp, Mail, Phone } from 'lucide-react';
+import { ArrowUp, Mail, Phone, Code2, Headphones, Layers, Sliders } from 'lucide-react';
 import { Linkedin, Github } from '../common/BrandIcons.jsx';
 import { profileData } from '../../data/profile.js';
 import { socialsData } from '../../data/socials.js';
+import { useProfile } from '../../context/ProfileContext.jsx';
 
 export const Footer = () => {
+  const { profileMode, setProfileMode, openSecretController } = useProfile();
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
@@ -13,17 +16,51 @@ export const Footer = () => {
   };
 
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Profile', href: '#career-profile' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Strengths', href: '#professional-strengths' },
-    { name: 'Services', href: '#services' },
-    { name: 'Resume', href: '#resume-preview' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Home', href: '#home', modes: ['all', 'tech', 'bpo'] },
+    { name: 'About', href: '#about', modes: ['all'] },
+    { name: 'Profile', href: '#career-profile', modes: ['all', 'tech', 'bpo'] },
+    { name: 'Skills', href: '#skills', modes: ['all', 'tech', 'bpo'] },
+    { name: 'Experience', href: '#experience', modes: ['all', 'tech', 'bpo'] },
+    { name: 'Projects', href: '#projects', modes: ['all', 'tech'] },
+    { name: 'Strengths', href: '#professional-strengths', modes: ['all', 'bpo'] },
+    { name: 'Services', href: '#services', modes: ['all'] },
+    { name: 'Resume', href: '#resume-preview', modes: ['all', 'tech', 'bpo'] },
+    { name: 'Contact', href: '#contact', modes: ['all', 'tech', 'bpo'] },
   ];
+
+  const visibleNavLinks = navLinks.filter(
+    (link) => !link.modes || link.modes.includes(profileMode)
+  );
+
+  // Hidden stealth switch trigger for Abhishek (invisible to HR)
+  const cornerClickRef = React.useRef({ count: 0, timer: null });
+
+  const handleHiddenCornerSwitch = (e) => {
+    e.preventDefault();
+    cornerClickRef.current.count += 1;
+
+    if (cornerClickRef.current.timer) {
+      clearTimeout(cornerClickRef.current.timer);
+    }
+
+    // Triple click opens the secret Master Profile Controller
+    if (cornerClickRef.current.count >= 3) {
+      cornerClickRef.current.count = 0;
+      openSecretController();
+      return;
+    }
+
+    cornerClickRef.current.timer = setTimeout(() => {
+      cornerClickRef.current.count = 0;
+    }, 700);
+
+    // Single click instantly toggles between IT (tech) and Non-IT / BPO (bpo)
+    if (profileMode === 'tech') {
+      setProfileMode('bpo');
+    } else {
+      setProfileMode('tech');
+    }
+  };
 
   return (
     <footer className="relative border-t border-white/10 bg-dark-950/90 pt-16 pb-12 overflow-hidden">
@@ -40,18 +77,32 @@ export const Footer = () => {
                   {profileData.name}
                 </span>
                 <span className="block text-xs font-mono text-dark-400">
-                  BCA Graduate • Tech & Customer Operations
+                  {profileMode === 'tech'
+                    ? 'BCA Graduate • Frontend & Web Developer'
+                    : profileMode === 'bpo'
+                    ? 'BCA Graduate • Support & Operations Specialist'
+                    : 'BCA Graduate • Tech & Customer Operations'}
                 </span>
               </div>
             </div>
 
             <p className="text-xs sm:text-sm text-dark-300 max-w-sm leading-relaxed">
-              Dedicated to building modern, responsive digital web interfaces and delivering empathetic, high-reliability customer support and operational execution.
+              {profileMode === 'tech'
+                ? 'Dedicated to engineering modern, responsive web applications in React and modern JavaScript with scalable architecture.'
+                : profileMode === 'bpo'
+                ? 'Dedicated to high-reliability customer support, process SLA adherence, and verified operational data management.'
+                : 'Dedicated to building modern digital web interfaces and delivering empathetic, high-reliability customer support and operational execution.'}
             </p>
 
             <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 pt-1">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>Available for Technical & Support Roles</span>
+              <span>
+                {profileMode === 'tech'
+                  ? 'Available for Frontend & Software Engineering Roles'
+                  : profileMode === 'bpo'
+                  ? 'Available for Customer Support & Operations Roles'
+                  : 'Available for Technical & Support Roles'}
+              </span>
             </div>
           </div>
 
@@ -61,7 +112,7 @@ export const Footer = () => {
               Explore Portfolio
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-              {navLinks.map((link) => (
+              {visibleNavLinks.map((link) => (
                 <a
                   key={link.name}
                   href={link.href}
@@ -111,15 +162,38 @@ export const Footer = () => {
         </div>
 
         {/* Bottom Sub-footer */}
-        <div className="pt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-dark-400 font-mono">
+        <div className="pt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-dark-400 font-mono relative">
           <div>
             © 2026 {profileData.name}. All rights reserved.
           </div>
-          <div>
-            Engineered with React, Tailwind CSS & Framer Motion
+
+          <div className="flex items-center gap-1.5">
+            <span>Engineered with React, Tailwind CSS & Framer Motion</span>
+
+            {/* Hidden Secret Dot (Hover karne par glow karta hai) */}
+            <button
+              type="button"
+              onClick={handleHiddenCornerSwitch}
+              className="p-1.5 -m-1 focus:outline-none cursor-pointer group inline-flex items-center justify-center"
+              aria-label="Status dot"
+              title=""
+            >
+              <span className="w-2 h-2 rounded-full bg-dark-600/40 group-hover:bg-brand-400 group-hover:shadow-glow-sm group-hover:scale-150 transition-all duration-300 block" />
+            </button>
           </div>
         </div>
       </div>
+
+      {/* Absolute Bottom-Right Stealth Corner Button (Corner mein 32px clickable area) */}
+      <button
+        type="button"
+        onClick={handleHiddenCornerSwitch}
+        className="absolute bottom-0 right-0 w-8 h-8 flex items-end justify-end p-2 opacity-25 hover:opacity-100 transition-opacity focus:outline-none cursor-pointer z-20 group"
+        aria-label="Corner switch"
+        title=""
+      >
+        <span className="w-2 h-2 rounded-full bg-dark-600/50 group-hover:bg-brand-400 group-hover:shadow-glow-sm group-hover:scale-125 transition-all" />
+      </button>
     </footer>
   );
 };

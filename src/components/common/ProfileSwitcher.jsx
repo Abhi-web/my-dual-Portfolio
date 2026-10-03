@@ -10,7 +10,12 @@ const modes = [
 ];
 
 export const ProfileSwitcher = ({ className = '', size = 'md', idPrefix = 'global' }) => {
-  const { profileMode, setProfileMode } = useProfile();
+  const { profileMode, setProfileMode, stealthMode } = useProfile();
+
+  // In stealth mode, hide all visible switcher buttons from recruiters
+  if (stealthMode) {
+    return null;
+  }
 
   const isSmall = size === 'sm';
 

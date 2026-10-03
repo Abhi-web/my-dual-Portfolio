@@ -13,21 +13,13 @@ import {
 export const Experience = () => {
   const { profileMode } = useProfile();
 
-  // Intelligently order experience records based on active profile mode
+  // Intelligently isolate experience records based on active profile mode
   const displayExperiences = useMemo(() => {
     if (profileMode === 'tech') {
-      return [...experienceData].sort((a, b) => {
-        const aTech = a.profileType?.includes('tech') ? 1 : 0;
-        const bTech = b.profileType?.includes('tech') ? 1 : 0;
-        return bTech - aTech;
-      });
+      return experienceData.filter((e) => e.profileType?.includes('tech'));
     }
     if (profileMode === 'bpo') {
-      return [...experienceData].sort((a, b) => {
-        const aBpo = a.profileType?.includes('bpo') ? 1 : 0;
-        const bBpo = b.profileType?.includes('bpo') ? 1 : 0;
-        return bBpo - aBpo;
-      });
+      return experienceData.filter((e) => e.profileType?.includes('bpo'));
     }
     return experienceData;
   }, [profileMode]);

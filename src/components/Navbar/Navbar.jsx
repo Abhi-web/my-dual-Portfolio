@@ -11,28 +11,28 @@ const desktopNavLinks = [
   { name: 'Skills', href: '#skills', modes: ['all', 'tech', 'bpo'] },
   { name: 'Profile', href: '#career-profile', modes: ['all', 'tech', 'bpo'] },
   { name: 'Experience', href: '#experience', modes: ['all', 'tech', 'bpo'] },
-  { name: 'Projects', href: '#projects', modes: ['all', 'tech', 'bpo'] },
+  { name: 'Projects', href: '#projects', modes: ['all', 'tech'] },
   { name: 'Strengths', href: '#professional-strengths', modes: ['all', 'bpo'] },
   { name: 'Services', href: '#services', modes: ['all'] },
   { name: 'Resume', href: '#resume-preview', modes: ['all', 'tech', 'bpo'] },
   { name: 'Contact', href: '#contact', modes: ['all', 'tech', 'bpo'] },
 ];
 
-// Complete mobile navigation as specified in mobile UX requirements
+// Complete mobile navigation filtered by active track mode
 const mobileNavLinks = [
-  { name: 'Home', href: '#home' },
-  { name: 'About', href: '#about' },
-  { name: 'Skills', href: '#skills' },
-  { name: 'Experience', href: '#experience' },
-  { name: 'Projects', href: '#projects' },
-  { name: 'Strengths & BPO', href: '#professional-strengths' },
-  { name: 'Services', href: '#services' },
-  { name: 'Resume & CV', href: '#resume-preview' },
-  { name: 'Contact', href: '#contact' },
+  { name: 'Home', href: '#home', modes: ['all', 'tech', 'bpo'] },
+  { name: 'About', href: '#about', modes: ['all'] },
+  { name: 'Skills', href: '#skills', modes: ['all', 'tech', 'bpo'] },
+  { name: 'Experience', href: '#experience', modes: ['all', 'tech', 'bpo'] },
+  { name: 'Projects', href: '#projects', modes: ['all', 'tech'] },
+  { name: 'Strengths & BPO', href: '#professional-strengths', modes: ['all', 'bpo'] },
+  { name: 'Services', href: '#services', modes: ['all'] },
+  { name: 'Resume & CV', href: '#resume-preview', modes: ['all', 'tech', 'bpo'] },
+  { name: 'Contact', href: '#contact', modes: ['all', 'tech', 'bpo'] },
 ];
 
 export const Navbar = ({ onOpenResume }) => {
-  const { profileMode } = useProfile();
+  const { profileMode, stealthMode, openSecretController } = useProfile();
   const { activeResume, handleDownload } = useResume();
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -40,8 +40,37 @@ export const Navbar = ({ onOpenResume }) => {
   const menuButtonRef = React.useRef(null);
   const prevMenuOpenRef = React.useRef(false);
 
+  // Triple-click secret trigger state for Abhishek's Master Controller
+  const clickCountRef = React.useRef(0);
+  const clickTimerRef = React.useRef(null);
+
+  const handleLogoClick = (e) => {
+    clickCountRef.current += 1;
+
+    if (clickTimerRef.current) {
+      clearTimeout(clickTimerRef.current);
+    }
+
+    if (clickCountRef.current >= 3) {
+      e.preventDefault();
+      clickCountRef.current = 0;
+      openSecretController();
+      return;
+    }
+
+    clickTimerRef.current = setTimeout(() => {
+      clickCountRef.current = 0;
+    }, 1000);
+
+    scrollToSection(e, '#home');
+  };
+
   // Subtly adapt visible nav links based on profile mode for desktop header
   const navLinks = desktopNavLinks.filter(
+    (link) => !link.modes || link.modes.includes(profileMode)
+  );
+
+  const activeMobileLinks = mobileNavLinks.filter(
     (link) => !link.modes || link.modes.includes(profileMode)
   );
 
@@ -137,11 +166,11 @@ export const Navbar = ({ onOpenResume }) => {
       }`}
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        {/* Brand / Logo */}
+        {/* Brand / Logo (With secret triple-click controller trigger) */}
         <a
           href="#home"
-          onClick={(e) => scrollToSection(e, '#home')}
-          className="group flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 rounded-xl p-1"
+          onClick={handleLogoClick}
+          className="group flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 rounded-xl p-1 select-none"
           aria-label="Abhishek Kushwaha - Home"
         >
           <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-dark-800 to-dark-900 border border-brand-500/30 group-hover:border-brand-400 transition-colors shadow-inner">
@@ -249,14 +278,16 @@ export const Navbar = ({ onOpenResume }) => {
               className="lg:hidden border-b border-dark-700/80 bg-dark-950/98 backdrop-blur-2xl px-4 pt-3 pb-6 shadow-2xl relative z-50 max-h-[85vh] overflow-y-auto"
             >
             <div className="flex flex-col gap-1 max-w-md mx-auto">
-              {/* Profile Selector Inside Mobile Drawer for Quick Access on All Devices */}
-              <div className="pb-3 mb-2 border-b border-dark-800 flex flex-col gap-1.5">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-dark-400">
-                  Active Career Presentation
-                </span>
-                <ProfileSwitcher className="w-full flex justify-between" size="md" idPrefix="nav-drawer" />
-              </div>
-              {mobileNavLinks.map((link, idx) => {
+              {/* Profile Selector Inside Mobile Drawer (Only visible when Stealth Mode is unlocked) */}
+              {!stealthMode && (
+                <div className="pb-3 mb-2 border-b border-dark-800 flex flex-col gap-1.5">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-dark-400">
+                    Active Career Presentation
+                  </span>
+                  <ProfileSwitcher className="w-full flex justify-between" size="md" idPrefix="nav-drawer" />
+                </div>
+              )}
+              {activeMobileLinks.map((link, idx) => {
                 const isActive = activeSection === link.href.substring(1);
                 return (
                   <motion.a

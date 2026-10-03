@@ -54,7 +54,11 @@ export const Hero = ({ onOpenResume }) => {
             <h1 className="text-3xl xs:text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-2 leading-[1.1] break-words">
               <span className="block">{profileData.name}</span>
               <span className="block text-base xs:text-lg sm:text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-brand-300 via-brand-400 to-teal-300 mt-2 tracking-normal">
-                BCA Graduate • Web Developer & Operations Specialist
+                {profileMode === 'tech'
+                  ? 'BCA Graduate • Frontend & Full-Stack Web Developer'
+                  : profileMode === 'bpo'
+                  ? 'BCA Graduate • Customer Support & Operations Specialist'
+                  : 'BCA Graduate • Web Developer & Operations Specialist'}
               </span>
             </h1>
 

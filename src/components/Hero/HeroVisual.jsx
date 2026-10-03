@@ -16,7 +16,7 @@ import { profileData } from '../../data/profile.js';
 import { useProfile } from '../../context/ProfileContext.jsx';
 
 export const HeroVisual = ({ onOpenResume, onContactClick }) => {
-  const { profileMode, setProfileMode } = useProfile();
+  const { profileMode, setProfileMode, stealthMode } = useProfile();
 
   // If profileMode is 'tech' or 'bpo', sync the tab automatically; if 'all', allow local toggle defaulting to technical
   const activeTab = profileMode === 'bpo' ? 'operations' : 'technical';
@@ -59,7 +59,7 @@ export const HeroVisual = ({ onOpenResume, onContactClick }) => {
                 <span className="text-brand-300 font-medium">BCA Graduate</span>
                 <span className="text-dark-600">•</span>
                 <span className="text-dark-400">
-                  {profileMode === 'tech' ? 'Technical Track' : profileMode === 'bpo' ? 'Support & Ops Track' : 'Dual-Domain Profile'}
+                  {profileMode === 'tech' ? 'Frontend & Web Development' : profileMode === 'bpo' ? 'Customer Support & Operations' : 'Dual-Domain Profile'}
                 </span>
               </p>
             </div>
@@ -71,39 +71,60 @@ export const HeroVisual = ({ onOpenResume, onContactClick }) => {
           </div>
         </div>
 
-        {/* Dual-Track Segmented Switcher */}
-        <div className="my-4">
-          <div className="flex p-1 rounded-xl bg-dark-950 border border-white/10" role="tablist" aria-label="Profile Track Switcher">
-            <button
-              type="button"
-              role="tab"
-              aria-selected={activeTab === 'technical'}
-              onClick={() => handleTabToggle('technical')}
-              className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold transition-all ${
-                activeTab === 'technical'
-                  ? 'bg-brand-500 text-dark-950 shadow-glow-sm'
-                  : 'text-dark-300 hover:text-white hover:bg-dark-800'
-              }`}
-            >
-              <Code2 className="w-3.5 h-3.5" />
-              <span>Technical Track</span>
-            </button>
-            <button
-              type="button"
-              role="tab"
-              aria-selected={activeTab === 'operations'}
-              onClick={() => handleTabToggle('operations')}
-              className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold transition-all ${
-                activeTab === 'operations'
-                  ? 'bg-teal-500 text-dark-950 shadow-glow-sm'
-                  : 'text-dark-300 hover:text-white hover:bg-dark-800'
-              }`}
-            >
-              <Headphones className="w-3.5 h-3.5" />
-              <span>Operations & BPO</span>
-            </button>
+        {/* Dual-Track Segmented Switcher (Hidden in Stealth Mode) */}
+        {!stealthMode ? (
+          <div className="my-4">
+            <div className="flex p-1 rounded-xl bg-dark-950 border border-white/10" role="tablist" aria-label="Profile Track Switcher">
+              <button
+                type="button"
+                role="tab"
+                aria-selected={activeTab === 'technical'}
+                onClick={() => handleTabToggle('technical')}
+                className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold transition-all ${
+                  activeTab === 'technical'
+                    ? 'bg-brand-500 text-dark-950 shadow-glow-sm'
+                    : 'text-dark-300 hover:text-white hover:bg-dark-800'
+                }`}
+              >
+                <Code2 className="w-3.5 h-3.5" />
+                <span>Technical Track</span>
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={activeTab === 'operations'}
+                onClick={() => handleTabToggle('operations')}
+                className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold transition-all ${
+                  activeTab === 'operations'
+                    ? 'bg-teal-500 text-dark-950 shadow-glow-sm'
+                    : 'text-dark-300 hover:text-white hover:bg-dark-800'
+                }`}
+              >
+                <Headphones className="w-3.5 h-3.5" />
+                <span>Operations & BPO</span>
+              </button>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="my-3.5 flex items-center justify-between px-1">
+            <span className="text-[11px] font-mono uppercase tracking-wider text-brand-400 font-semibold flex items-center gap-1.5">
+              {activeTab === 'technical' ? (
+                <>
+                  <Code2 className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>Developer Execution Sandbox</span>
+                </>
+              ) : (
+                <>
+                  <Headphones className="w-3.5 h-3.5 text-teal-400" />
+                  <span>Operations & Quality Protocol</span>
+                </>
+              )}
+            </span>
+            <span className="text-[10px] font-mono text-dark-400">
+              {activeTab === 'technical' ? 'Verified Code Environment' : 'Verified SLA Framework'}
+            </span>
+          </div>
+        )}
 
         {/* Console Display Container */}
         <div className="min-h-[220px]">

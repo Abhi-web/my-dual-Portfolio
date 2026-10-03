@@ -19,6 +19,7 @@ import { SectionHeading } from '../common/SectionHeading.jsx';
 import { profileData } from '../../data/profile.js';
 import { useResume } from '../../hooks/useResume.js';
 import { useReducedMotion } from '../../hooks/useReducedMotion.js';
+import { useProfile } from '../../context/ProfileContext.jsx';
 
 export const Resume = ({ onOpenResumeModal }) => {
   const { 
@@ -31,6 +32,7 @@ export const Resume = ({ onOpenResumeModal }) => {
     isFallback, 
     fallbackNotice 
   } = useResume();
+  const { stealthMode } = useProfile();
 
   const prefersReduced = useReducedMotion();
 
@@ -59,45 +61,61 @@ export const Resume = ({ onOpenResumeModal }) => {
           transition={{ duration: 0.5 }}
           className="rounded-2xl glass-card border border-white/10 p-5 sm:p-8 md:p-10 shadow-2xl relative overflow-hidden max-w-5xl mx-auto"
         >
-          {/* Track Switcher Tabs directly on the Resume Card for instant recruiter toggling */}
-          <div className="mb-6 pb-6 border-b border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div>
-              <span className="text-[11px] font-mono uppercase tracking-wider text-brand-400 font-semibold block mb-1">
-                Select Resume Specification
-              </span>
-              <p className="text-xs text-dark-400">
-                Tailored documentation designed for recruiter efficiency
-              </p>
-            </div>
+          {/* Track Switcher Tabs (Only visible when Stealth Mode is unlocked) */}
+          {!stealthMode ? (
+            <div className="mb-6 pb-6 border-b border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div>
+                <span className="text-[11px] font-mono uppercase tracking-wider text-brand-400 font-semibold block mb-1">
+                  Select Resume Specification
+                </span>
+                <p className="text-xs text-dark-400">
+                  Tailored documentation designed for recruiter efficiency
+                </p>
+              </div>
 
-            <div 
-              className="inline-flex p-1 rounded-xl bg-dark-950/90 border border-white/10 self-start md:self-auto"
-              role="tablist"
-              aria-label="Resume Profile Selector"
-            >
-              {resumeTracks.map((track) => {
-                const Icon = track.icon;
-                const isSelected = profileMode === track.id;
-                return (
-                  <button
-                    key={track.id}
-                    type="button"
-                    role="tab"
-                    aria-selected={isSelected}
-                    onClick={() => setProfileMode(track.id)}
-                    className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold transition-all ${
-                      isSelected
-                        ? 'bg-gradient-to-r from-brand-500 to-teal-400 text-dark-950 shadow-glow-sm'
-                        : 'text-dark-300 hover:text-white hover:bg-dark-800'
-                    }`}
-                  >
-                    <Icon className="w-3.5 h-3.5" />
-                    <span>{track.label}</span>
-                  </button>
-                );
-              })}
+              <div 
+                className="inline-flex p-1 rounded-xl bg-dark-950/90 border border-white/10 self-start md:self-auto"
+                role="tablist"
+                aria-label="Resume Profile Selector"
+              >
+                {resumeTracks.map((track) => {
+                  const Icon = track.icon;
+                  const isSelected = profileMode === track.id;
+                  return (
+                    <button
+                      key={track.id}
+                      type="button"
+                      role="tab"
+                      aria-selected={isSelected}
+                      onClick={() => setProfileMode(track.id)}
+                      className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold transition-all ${
+                        isSelected
+                          ? 'bg-gradient-to-r from-brand-500 to-teal-400 text-dark-950 shadow-glow-sm'
+                          : 'text-dark-300 hover:text-white hover:bg-dark-800'
+                      }`}
+                    >
+                      <Icon className="w-3.5 h-3.5" />
+                      <span>{track.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
-          </div>
+          ) : (
+            <div className="mb-6 pb-4 border-b border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <span className="text-[11px] font-mono uppercase tracking-wider text-brand-400 font-semibold block mb-1">
+                  Verified Candidate Documentation
+                </span>
+                <p className="text-xs text-dark-400">
+                  {activeResume.title} • Tailored for Recruiter Evaluation
+                </p>
+              </div>
+              <span className="px-2.5 py-1 rounded-md text-[11px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 self-start sm:self-auto">
+                PDF Ready to Download
+              </span>
+            </div>
+          )}
 
           {/* Fallback Notice Banner if specialized resume is unavailable */}
           {isFallback && (
