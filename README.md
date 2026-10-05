@@ -320,6 +320,12 @@ npm run preview
 - ✉️ **Email**: [abhishekku389@gmail.com](mailto:abhishekku389@gmail.com)
 - 📸 **Instagram**: [@it_abhishek_106](https://www.instagram.com/it_abhishek_106/)
 
+  ### 🌐 Live Demo
+
+🚀 **[View Live Portfolio](https://my-dual-portfolio.vercel.app/)**
+
+> Explore the complete dual-domain portfolio with Technical and Operations/BPO profile modes.
+
 ---
 
 ## 📄 License
