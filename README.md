@@ -13,7 +13,26 @@
 
 **A state-of-the-art, high-performance dual-track portfolio engineered with React 19, Tailwind CSS, Framer Motion, and lightweight code-based interactive 3D SVG graphics.**
 
-[Live Interactive Portfolio](#) • [Explore Codebase](https://github.com/Abhi-web/my-dual-Portfolio) • [Connect on WhatsApp](https://wa.me/918127290159) • [LinkedIn](https://www.linkedin.com/in/abhishek-kushwaha-84b2a42b8?)
+<br />
+
+[![WhatsApp](https://img.shields.io/badge/WhatsApp-Chat%20Now-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/918127290159)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/abhishek-kushwaha-84b2a42b8?)
+[![GitHub](https://img.shields.io/badge/GitHub-Follow-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Abhi-web)
+[![Instagram](https://img.shields.io/badge/Instagram-Follow-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/it_abhishek_106/)
+[![Gmail](https://img.shields.io/badge/Gmail-Email%20Me-EA4335?style=for-the-badge&logo=gmail&logoColor=white)](mailto:abhishekku389@gmail.com)
+
+<br />
+<br />
+
+### 🛠️ Core Technologies & Tooling
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=react,vite,tailwind,js,html,css,nodejs,express,mongodb,docker,aws,gcp,git,github,vscode,postman" alt="Skill Icons" />
+</p>
+
+### 📸 Live Preview: Code-Based 3D Social Hub
+<p align="center">
+  <img src="screenshots/3d_social_hub.png" alt="3D Social Hub - WhatsApp, Instagram, LinkedIn, GitHub" width="100%" />
+</p>
 
 </div>
 
