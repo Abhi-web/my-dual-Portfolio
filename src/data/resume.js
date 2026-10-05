@@ -81,6 +81,8 @@ export const resumeConfig = {
     summaryNarrative: "BCA student specializing in modern web engineering and component-driven architecture. Experienced in React, JavaScript (ES6+), Node.js, Express, and Tailwind CSS. Dedicated to building accessible, high-performance web applications with seamless UX, REST API integration, and clean code principles.",
     coreCompetencies: [
       "React (Hooks, Context API, Suspense)",
+      "Three.js & 3D WebGL Graphics (@pixiv/three-vrm)",
+      "AI & LLM Integration (Ollama Local & OpenAI GPT-4o)",
       "JavaScript (ES6+, Async/Await, DOM)",
       "Cloud Infrastructure Basics (AWS, Azure, Google Cloud)",
       "Docker & Cloud Deployment Fundamentals",

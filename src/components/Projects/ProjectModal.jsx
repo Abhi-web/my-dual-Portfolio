@@ -1,12 +1,21 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ExternalLink, CheckCircle2, Cpu, Sparkles, ArrowRight } from 'lucide-react';
+import { X, ExternalLink, CheckCircle2, Cpu, Sparkles, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Github } from '../common/BrandIcons.jsx';
 import { modalOverlayVariants, modalDialogVariants } from '../../utils/motion.js';
 
 export const ProjectModal = ({ project, onClose }) => {
   const modalRef = useRef(null);
   const previousFocusRef = useRef(null);
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+
+  const gallery = project?.gallery && project.gallery.length > 0 ? project.gallery : null;
+  const currentImage = gallery ? gallery[activeImageIndex]?.url || project.image : project?.image;
+  const currentItem = gallery ? gallery[activeImageIndex] : null;
+
+  useEffect(() => {
+    setActiveImageIndex(0);
+  }, [project]);
 
   useEffect(() => {
     previousFocusRef.current = document.activeElement;
@@ -22,6 +31,16 @@ export const ProjectModal = ({ project, onClose }) => {
         e.preventDefault();
         onClose();
         return;
+      }
+
+      if (gallery && gallery.length > 1) {
+        if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          setActiveImageIndex((prev) => (prev + 1) % gallery.length);
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          setActiveImageIndex((prev) => (prev - 1 + gallery.length) % gallery.length);
+        }
       }
 
       if (e.key === 'Tab') {
@@ -104,25 +123,95 @@ export const ProjectModal = ({ project, onClose }) => {
             <X className="w-5 h-5" />
           </button>
 
-          {/* Project Preview Image */}
-          <div className="relative w-full h-56 sm:h-72 rounded-xl overflow-hidden mb-6 border border-white/10">
-            <img
-              src={project.image}
-              alt={`${project.title} - application interface and architecture preview`}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/30 to-transparent" />
-            <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
-              <span className="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-brand-500 text-dark-950 shadow-md">
-                {project.category}
-              </span>
-              {project.featured && (
-                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-mono font-medium bg-dark-900/90 text-brand-300 border border-brand-500/30">
-                  <Sparkles className="w-3.5 h-3.5 text-brand-400" />
-                  Flagship Showcase
-                </span>
+          {/* Project Preview Image with Interactive Multi-Screen Gallery */}
+          <div className="relative mb-6">
+            <div className="relative w-full h-60 sm:h-80 rounded-xl overflow-hidden border border-white/10 bg-dark-900 group">
+              <img
+                src={currentImage}
+                alt={`${project.title} - ${currentItem?.title || 'application interface and architecture preview'}`}
+                className="w-full h-full object-cover transition-all duration-300"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/20 to-transparent pointer-events-none" />
+
+              {/* Prev / Next Navigation Arrows for Multi-image projects */}
+              {gallery && gallery.length > 1 && (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => setActiveImageIndex((prev) => (prev - 1 + gallery.length) % gallery.length)}
+                    className="absolute left-3 top-1/2 -translate-y-1/2 min-w-[38px] min-h-[38px] flex items-center justify-center rounded-xl bg-dark-950/80 hover:bg-brand-500 hover:text-dark-950 text-white border border-white/15 transition-all shadow-xl backdrop-blur-md focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
+                    aria-label="Previous screenshot"
+                  >
+                    <ChevronLeft className="w-5 h-5" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveImageIndex((prev) => (prev + 1) % gallery.length)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 min-w-[38px] min-h-[38px] flex items-center justify-center rounded-xl bg-dark-950/80 hover:bg-brand-500 hover:text-dark-950 text-white border border-white/15 transition-all shadow-xl backdrop-blur-md focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400"
+                    aria-label="Next screenshot"
+                  >
+                    <ChevronRight className="w-5 h-5" />
+                  </button>
+                </>
               )}
+
+              {/* Badges Overlay */}
+              <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none">
+                <div className="flex items-center gap-2">
+                  <span className="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-brand-500 text-dark-950 shadow-md">
+                    {project.category}
+                  </span>
+                  {project.featured && (
+                    <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-mono font-medium bg-dark-900/90 text-brand-300 border border-brand-500/30">
+                      <Sparkles className="w-3.5 h-3.5 text-brand-400" />
+                      Flagship Showcase
+                    </span>
+                  )}
+                </div>
+
+                {gallery && gallery.length > 1 && (
+                  <span className="px-2.5 py-1 rounded-full text-[11px] font-mono font-semibold bg-dark-950/85 text-brand-300 border border-white/10 backdrop-blur-md">
+                    {activeImageIndex + 1} / {gallery.length}
+                  </span>
+                )}
+              </div>
             </div>
+
+            {/* Gallery Caption & Thumbnail Selector */}
+            {gallery && gallery.length > 1 && (
+              <div className="mt-3 space-y-2">
+                {currentItem?.caption && (
+                  <p className="text-xs text-dark-300 font-mono bg-dark-900/50 p-2.5 rounded-lg border border-white/5">
+                    <span className="text-brand-300 font-semibold">{currentItem.title}:</span> {currentItem.caption}
+                  </p>
+                )}
+                <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+                  {gallery.map((item, idx) => {
+                    const isSelected = idx === activeImageIndex;
+                    return (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => setActiveImageIndex(idx)}
+                        className={`relative rounded-lg overflow-hidden border transition-all duration-200 shrink-0 ${
+                          isSelected
+                            ? 'border-brand-400 ring-2 ring-brand-400/50 scale-105'
+                            : 'border-white/10 opacity-60 hover:opacity-100 hover:border-white/30'
+                        }`}
+                        style={{ width: '80px', height: '50px' }}
+                        aria-label={`View ${item.title}`}
+                      >
+                        <img
+                          src={item.url}
+                          alt={item.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Project Title & Links */}

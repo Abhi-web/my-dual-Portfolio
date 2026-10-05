@@ -5,6 +5,56 @@
  */
 
 export const projectsData = [
+  {
+    id: "aria-hologram",
+    title: "ARIA – 3D Holographic AI Companion & Desktop Assistant",
+    shortDescription: "An immersive 3D holographic desktop companion featuring real-time VRM humanoid avatars, procedural gaze & gestures, 15-viseme lip-syncing, and dual local/cloud LLM intelligence.",
+    fullDescription: "ARIA (Adaptive Realtime Intelligent Avatar) bridges cutting-edge computer graphics with conversational artificial intelligence. Engineered with React 18, Three.js (@pixiv/three-vrm), and Electron, it operates both as a full-featured 3D productivity companion and as a borderless, transparent floating holographic HUD overlay hovering over Windows desktops. Features local offline privacy-first AI via Ollama (llama3.2:3b), cloud OpenAI GPT-4o, real-time voice synthesis, 15-viseme audio lip synchronization, and live 3D wardrobe customization.",
+    category: "React",
+    profileType: ["all", "tech", "bpo"],
+    featured: true,
+    tags: ["React 18", "Three.js", "Electron", "TypeScript", "VRM 3D", "Ollama LLM", "OpenAI GPT-4o", "Web Audio API", "Tailwind CSS"],
+    metrics: [
+      { label: "Avatar Performance", value: "60 FPS 3D VRM" },
+      { label: "Lip-Sync Latency", value: "15 Visemes <16ms" },
+      { label: "AI Privacy", value: "100% Offline Local" },
+    ],
+    features: [
+      "Real-time 3D VRM humanoid avatar rendering with procedural eye-tracking, gaze micro-saccades, and dynamic emotional facial blendshapes",
+      "Interactive 3D workspace with live companion state indicators (Idle, Listen, Think, Speak, Emotions)",
+      "Borderless transparent desktop hologram HUD mode hovering directly on Windows desktop with click-through support",
+      "Hands-free voice dialogue with real-time audio lip-syncing and barge-in conversational interruption",
+      "Dual AI intelligence backends: Local offline Ollama (llama3.2:3b) and encrypted Cloud OpenAI GPT-4o",
+      "Real-time 3D wardrobe customizer with live texture swapping across cyberpunk suit, gothic velvet dress, and custom GLB accessories"
+    ],
+    challengesSolved: "Achieved seamless 60 FPS VRM humanoid rendering with zero garbage-collection stutter while simultaneously performing real-time audio FFT spectral analysis and procedural bone kinematics.",
+    githubUrl: "https://github.com/Abhi-web/AI-Hologram-Assistant",
+    liveUrl: "https://6ac3c0f2a432690a461f6679--ai-hologram-assistant.netlify.app/",
+    image: "/projects/aria-workspace.png",
+    gallery: [
+      {
+        url: "/projects/aria-workspace.png",
+        title: "3D Hologram Assistant Workspace",
+        caption: "Full-featured 3D companion workstation with active chat panel, audio visualizers, and companion state indicators."
+      },
+      {
+        url: "/projects/aria-hologram-mode.png",
+        title: "Desktop Hologram Overlay Mode",
+        caption: "Borderless desktop hologram overlay with transparent alpha background, floating HUD, and realtime speech interactions."
+      },
+      {
+        url: "/projects/aria-wardrobe-modal.png",
+        title: "3D Wardrobe & Texture Customizer",
+        caption: "Interactive wardrobe customizer with outfit preview cards and live mesh texture swapping."
+      },
+      {
+        url: "/projects/aria-settings-panel.png",
+        title: "AI Neural & Audio Configuration",
+        caption: "AI provider management (Ollama local / OpenAI cloud), TTS voice selection, and speech recognition settings."
+      }
+    ],
+    architecture: "React 18 + Three.js (@pixiv/three-vrm) + Electron 31 + Local Ollama / Cloud OpenAI + Web Audio API 15-Viseme Processor",
+  },
 
   {
     id: "comm-pulse",
