@@ -4,6 +4,7 @@ import { CheckCircle2, Sparkles } from 'lucide-react';
 import { SectionHeading } from '../common/SectionHeading.jsx';
 import { bpoStrengthsData, bpoMetricsOverview } from '../../data/bpoStrengths.js';
 import { IconRenderer } from '../common/IconRenderer.jsx';
+import { BPO3DIcon } from './BPO3DIcon.jsx';
 
 export const BPOStrengths = () => {
   const [activeScenarioStep, setActiveScenarioStep] = useState(0);
@@ -158,57 +159,64 @@ export const BPOStrengths = () => {
         {/* 11 Required Competencies Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {bpoStrengthsData.map((item, idx) => (
-            <motion.div
-              key={item.id}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.35, delay: Math.min(idx * 0.03, 0.25) }}
-              className="p-5 sm:p-6 rounded-2xl glass-card border border-white/10 hover:border-teal-400/40 flex flex-col justify-between group transition-all h-full hover:-translate-y-0.5"
-            >
-              <div>
-                <div className="flex items-start justify-between gap-3 mb-4">
-                  <div className="icon-box-teal group-hover:scale-105 transition-transform">
-                    <IconRenderer name={item.iconName} className="w-5 h-5" />
-                  </div>
-                  <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-medium bg-dark-950 text-teal-300 border border-teal-500/20">
-                    {item.stat}
-                  </span>
-                </div>
-
-                <h3 className="text-base sm:text-lg font-bold text-white tracking-tight group-hover:text-teal-200 transition-colors mb-2">
-                  {item.title}
-                </h3>
-
-                <p className="text-xs sm:text-sm text-dark-300 leading-relaxed mb-4">
-                  {item.description}
-                </p>
-
-                {/* Core Competencies Bullets */}
-                <div className="space-y-1.5 mb-4">
-                  {item.coreCompetencies.map((comp, cIdx) => (
-                    <div key={cIdx} className="flex items-start gap-2 text-xs text-dark-300">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-teal-400 shrink-0 mt-0.5" />
-                      <span>{comp}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Bottom Real World Value Note */}
-              <div className="pt-3 border-t border-white/10 mt-auto">
-                <span className="text-[10px] font-mono uppercase tracking-wider text-dark-400 block mb-0.5">
-                  Business Value
-                </span>
-                <span className="text-xs text-teal-300 font-medium">
-                  {item.realWorldValue}
-                </span>
-              </div>
-            </motion.div>
+            <BPOStrengthCard key={item.id} item={item} idx={idx} />
           ))}
         </div>
       </div>
     </section>
+  );
+};
+
+const BPOStrengthCard = ({ item, idx }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.35, delay: Math.min(idx * 0.03, 0.25) }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="p-5 sm:p-6 rounded-2xl glass-card border border-white/10 hover:border-teal-400/40 flex flex-col justify-between group transition-all duration-300 h-full hover:-translate-y-1 shadow-lg hover:shadow-2xl relative overflow-hidden"
+    >
+      <div>
+        <div className="flex items-center justify-between gap-3 mb-4">
+          <BPO3DIcon id={item.id} isHovered={isHovered} />
+          <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-medium bg-dark-950 text-teal-300 border border-teal-500/20">
+            {item.stat}
+          </span>
+        </div>
+
+        <h3 className="text-base sm:text-lg font-bold text-white tracking-tight group-hover:text-teal-200 transition-colors mb-2">
+          {item.title}
+        </h3>
+
+        <p className="text-xs sm:text-sm text-dark-300 leading-relaxed mb-4">
+          {item.description}
+        </p>
+
+        {/* Core Competencies Bullets */}
+        <div className="space-y-1.5 mb-4">
+          {item.coreCompetencies.map((comp, cIdx) => (
+            <div key={cIdx} className="flex items-start gap-2 text-xs text-dark-300">
+              <CheckCircle2 className="w-3.5 h-3.5 text-teal-400 shrink-0 mt-0.5" />
+              <span>{comp}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Bottom Real World Value Note */}
+      <div className="pt-3 border-t border-white/10 mt-auto">
+        <span className="text-[10px] font-mono uppercase tracking-wider text-dark-400 block mb-0.5">
+          Business Value
+        </span>
+        <span className="text-xs text-teal-300 font-medium">
+          {item.realWorldValue}
+        </span>
+      </div>
+    </motion.div>
   );
 };
 

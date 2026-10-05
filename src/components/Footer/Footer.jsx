@@ -1,6 +1,8 @@
 import React from 'react';
 import { ArrowUp, Mail, Phone, Code2, Headphones, Layers, Sliders } from 'lucide-react';
-import { Linkedin, Github } from '../common/BrandIcons.jsx';
+import { Linkedin, Github, Instagram } from '../common/BrandIcons.jsx';
+import { Social3DIcon, Social3DCard } from '../common/Social3DIcon.jsx';
+import { AK3DIcon } from '../common/AK3DIcon.jsx';
 import { profileData } from '../../data/profile.js';
 import { socialsData } from '../../data/socials.js';
 import { useProfile } from '../../context/ProfileContext.jsx';
@@ -65,13 +67,34 @@ export const Footer = () => {
   return (
     <footer className="relative border-t border-white/10 bg-dark-950/90 pt-16 pb-12 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* 3D Interactive Social Channels Showcase Hub */}
+        <div className="mb-14 pb-12 border-b border-white/10">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+            <div>
+              <span className="text-[11px] font-mono uppercase tracking-wider text-brand-400 font-semibold block mb-1">
+                Verified Social Profiles
+              </span>
+              <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                Connect with Abhishek
+              </h3>
+            </div>
+            <p className="text-xs sm:text-sm text-dark-400 max-w-sm">
+              Connect with Abhishek on WhatsApp, Instagram, LinkedIn, and GitHub for discussions, opportunities, and instant messaging.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {socialsData.filter(s => ['WhatsApp', 'Instagram', 'LinkedIn', 'GitHub'].includes(s.name)).map((social) => (
+              <Social3DCard key={social.name} social={social} />
+            ))}
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-10 border-b border-white/10">
           {/* Col 1: Identity & Professional Statement */}
           <div className="lg:col-span-5 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500/20 to-teal-500/10 border border-brand-500/30 flex items-center justify-center font-mono font-bold text-brand-300">
-                AK
-              </div>
+              <AK3DIcon size="sm" />
               <div>
                 <span className="font-bold text-lg text-white tracking-tight">
                   {profileData.name}
@@ -124,27 +147,26 @@ export const Footer = () => {
             </div>
           </div>
 
-          {/* Col 3: Social Channels & Back to Top */}
+          {/* Col 3: Direct Inquiries & Back to Top */}
           <div className="lg:col-span-3 space-y-4">
             <div className="text-xs font-mono uppercase tracking-wider text-white font-semibold">
-              Connect With Abhishek
+              Direct Inquiries
             </div>
-            <div className="flex flex-wrap gap-2">
-              {socialsData.map((social) => (
-                <a
-                  key={social.name}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2.5 rounded-xl glass-pill border border-white/10 text-dark-300 hover:text-white hover:border-brand-500/40 transition-colors"
-                  aria-label={social.label}
-                >
-                  {social.name === 'LinkedIn' && <Linkedin className="w-4 h-4 text-blue-400" />}
-                  {social.name === 'GitHub' && <Github className="w-4 h-4 text-purple-400" />}
-                  {social.name === 'Email' && <Mail className="w-4 h-4 text-brand-400" />}
-                  {social.name === 'Phone' && <Phone className="w-4 h-4 text-emerald-400" />}
-                </a>
-              ))}
+            <div className="space-y-2.5">
+              <a
+                href="mailto:abhishekku389@gmail.com"
+                className="flex items-center gap-2.5 text-xs text-dark-300 hover:text-white transition-colors"
+              >
+                <Mail className="w-3.5 h-3.5 text-brand-400 shrink-0" />
+                <span className="truncate">abhishekku389@gmail.com</span>
+              </a>
+              <a
+                href="tel:+918127290159"
+                className="flex items-center gap-2.5 text-xs text-dark-300 hover:text-white transition-colors"
+              >
+                <Phone className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                <span>+91 81272 90159</span>
+              </a>
             </div>
 
             <div className="pt-2">

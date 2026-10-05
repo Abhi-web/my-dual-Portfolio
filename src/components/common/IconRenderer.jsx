@@ -52,9 +52,12 @@ import {
   FileText,
   UserCheck,
   HelpCircle,
+  Cloud,
+  Box,
+  UploadCloud,
 } from 'lucide-react';
 
-import { Github, Linkedin } from './BrandIcons.jsx';
+import { Github, Linkedin, Instagram, Whatsapp, WhatsApp } from './BrandIcons.jsx';
 
 const iconMap = {
   Atom,
@@ -110,6 +113,12 @@ const iconMap = {
   Layers,
   FileText,
   UserCheck,
+  Cloud,
+  Box,
+  UploadCloud,
+  Instagram,
+  Whatsapp,
+  WhatsApp,
 };
 
 export const IconRenderer = React.memo(({ name, className = 'w-5 h-5', size, ...props }) => {

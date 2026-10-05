@@ -34,6 +34,7 @@ export const resumeConfig = {
     summaryNarrative: "Hardworking and motivated BCA graduate combining modern web application engineering (React, JavaScript, Node.js) with precision operations (7 months Quality Inspector, 4 months Data Entry Executive in MS Excel). Proven focus on SLA adherence, code quality, and methodical problem-solving.",
     coreCompetencies: [
       "React & Modern JavaScript (ES6+)",
+      "Cloud & DevOps Basics (AWS, Azure, Google Cloud, Docker, Deployment)",
       "HTML5, CSS3 & Responsive Design",
       "Node.js Basics & REST APIs",
       "Quality Inspection & Defect Control",
@@ -81,6 +82,8 @@ export const resumeConfig = {
     coreCompetencies: [
       "React (Hooks, Context API, Suspense)",
       "JavaScript (ES6+, Async/Await, DOM)",
+      "Cloud Infrastructure Basics (AWS, Azure, Google Cloud)",
+      "Docker & Cloud Deployment Fundamentals",
       "Tailwind CSS & Vanilla CSS Design Systems",
       "HTML5 Semantic Architecture & Web Accessibility (WCAG)",
       "Node.js & Express RESTful APIs",

@@ -4,6 +4,7 @@ import { Menu, X, Download, Eye } from 'lucide-react';
 import { useProfile } from '../../context/ProfileContext.jsx';
 import { useResume } from '../../hooks/useResume.js';
 import { ProfileSwitcher } from '../common/ProfileSwitcher.jsx';
+import { AK3DIcon } from '../common/AK3DIcon.jsx';
 
 const desktopNavLinks = [
   { name: 'Home', href: '#home', modes: ['all', 'tech', 'bpo'] },
@@ -37,6 +38,7 @@ export const Navbar = ({ onOpenResume }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isLogoHovered, setIsLogoHovered] = useState(false);
   const menuButtonRef = React.useRef(null);
   const prevMenuOpenRef = React.useRef(false);
 
@@ -170,13 +172,12 @@ export const Navbar = ({ onOpenResume }) => {
         <a
           href="#home"
           onClick={handleLogoClick}
-          className="group flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 rounded-xl p-1 select-none"
+          onMouseEnter={() => setIsLogoHovered(true)}
+          onMouseLeave={() => setIsLogoHovered(false)}
+          className="group flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 rounded-xl p-0.5 select-none"
           aria-label="Abhishek Kushwaha - Home"
         >
-          <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-dark-800 to-dark-900 border border-brand-500/30 group-hover:border-brand-400 transition-colors shadow-inner">
-            <span className="font-mono font-bold text-sm text-brand-300">AK</span>
-            <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-dark-950" />
-          </div>
+          <AK3DIcon size="sm" isHovered={isLogoHovered} />
         </a>
 
         {/* Desktop Navigation Links */}

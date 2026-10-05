@@ -14,7 +14,8 @@ import {
   ExternalLink,
   ShieldCheck
 } from 'lucide-react';
-import { Linkedin, Github } from '../common/BrandIcons.jsx';
+import { Linkedin, Github, Instagram } from '../common/BrandIcons.jsx';
+import { Social3DIcon, Social3DCard } from '../common/Social3DIcon.jsx';
 import { SectionHeading } from '../common/SectionHeading.jsx';
 import { contactData } from '../../data/contact.js';
 import { useProfile } from '../../context/ProfileContext.jsx';
@@ -364,10 +365,7 @@ export const Contact = () => {
                     className="flex items-center gap-2 px-3.5 py-2 rounded-xl glass-pill text-xs font-medium text-dark-200 hover:text-white hover:bg-dark-850 border border-white/10 hover:border-brand-500/40 transition-all active:scale-95"
                     aria-label={social.label}
                   >
-                    {social.name === 'LinkedIn' && <Linkedin className="w-4 h-4 text-blue-400" />}
-                    {social.name === 'GitHub' && <Github className="w-4 h-4 text-purple-400" />}
-                    {social.name === 'Direct Email' && <Mail className="w-4 h-4 text-brand-400" />}
-                    {social.name === 'Phone / WhatsApp' && <Phone className="w-4 h-4 text-emerald-400" />}
+                    <Social3DIcon type={social.name} size="sm" />
                     <span>{social.name}</span>
                   </a>
                 ))}

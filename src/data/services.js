@@ -10,12 +10,12 @@ export const servicesData = [
     track: "Technical",
     iconName: "Code2",
     description: "Developing scalable, clean, and responsive web applications using React, Node.js, Express, and modern JavaScript. Focused on robust architecture, maintainable structure, and smooth performance.",
-    skills: ["React", "JavaScript", "Node.js", "Express", "REST APIs", "Git"],
+    skills: ["React", "JavaScript", "Node.js", "AWS", "Docker", "Cloud Deployment"],
     deliverables: [
       "Custom React Web Applications",
       "API Integrations & Data Handling",
-      "Performance & SEO Optimization",
-      "Bug Fixing & Code Maintenance"
+      "Cloud Deployment & Containerized Hosting",
+      "Performance & SEO Optimization"
     ]
   },
   {

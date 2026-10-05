@@ -144,7 +144,7 @@ export const Hero = ({ onOpenResume }) => {
                   {/* GitHub for Technical Mode */}
                   {profileMode === 'tech' && (
                     <a
-                      href="https://github.com/abhishekkushwaha"
+                      href="https://github.com/Abhi-web"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-medium text-xs sm:text-sm text-dark-300 hover:text-white hover:bg-dark-900 transition-colors"

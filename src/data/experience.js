@@ -67,7 +67,7 @@ export const experienceData = [
     skillsUsed: ["React", "JavaScript (ES6+)", "Node.js Basics", "HTML5 & CSS3", "Git & GitHub", "REST APIs"],
     achievements: [
       "2nd Runner-Up – Brain Teasers Competition (Exuberance 2024 Annual Fest, Allenhouse Institute of Technology).",
-      "Successfully built and deployed multiple responsive web applications including OpsDesk Support System.",
+      "Successfully built and deployed multiple responsive web applications with modern component architecture.",
     ],
   }
 ];

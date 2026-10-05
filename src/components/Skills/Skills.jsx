@@ -7,11 +7,17 @@ import { Skill3DIcon } from './Skill3DIcon.jsx';
 
 const getLevelBadge = (level = '') => {
   const l = level.toLowerCase();
+  if (l.includes('basic') || l.includes('fundamental') || l.includes('beginner')) {
+    return { label: 'Basic Knowledge', style: 'bg-sky-500/10 text-sky-300 border-sky-500/30 shadow-[0_0_10px_rgba(14,165,233,0.15)]' };
+  }
   if (l.includes('advanced') || l.includes('architecture') || l.includes('expert') || l.includes('collaborative') || l.includes('modern design')) {
     return { label: 'Advanced', style: 'bg-cyan-500/10 text-cyan-300 border-cyan-500/30 shadow-[0_0_10px_rgba(6,182,212,0.15)]' };
   }
-  if (l.includes('proficient') || l.includes('competence') || l.includes('hands-on') || l.includes('standard') || l.includes('core') || l.includes('foundational')) {
+  if (l.includes('proficient') || l.includes('competence') || l.includes('hands-on') || l.includes('standard') || l.includes('core')) {
     return { label: 'Proficient', style: 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30 shadow-[0_0_10px_rgba(16,185,129,0.15)]' };
+  }
+  if (l.includes('foundational') || l.includes('working knowledge')) {
+    return { label: 'Foundational', style: 'bg-indigo-500/10 text-indigo-300 border-indigo-500/30 shadow-[0_0_10px_rgba(99,102,241,0.15)]' };
   }
   return { label: 'Intermediate', style: 'bg-amber-500/10 text-amber-300 border-amber-500/30 shadow-[0_0_10px_rgba(245,158,11,0.15)]' };
 };

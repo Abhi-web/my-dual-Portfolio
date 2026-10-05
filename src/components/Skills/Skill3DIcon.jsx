@@ -11,6 +11,11 @@ export const getSkill3DKey = (skillName = '') => {
   if (s.includes('node')) return 'nodejs';
   if (s.includes('express')) return 'express';
   if (s.includes('mongo')) return 'mongodb';
+  if (s.includes('aws') || s.includes('amazon')) return 'aws';
+  if (s.includes('azure')) return 'azure';
+  if (s.includes('google cloud') || s.includes('gcp')) return 'googlecloud';
+  if (s.includes('docker') || s.includes('container')) return 'docker';
+  if (s.includes('cloud deployment') || s.includes('deployment')) return 'clouddeployment';
   if (s.includes('api') || s.includes('rest')) return 'restapi';
   if (s.includes('git')) return 'git';
   if (s.includes('office') || s.includes('excel')) return 'msoffice';
@@ -31,6 +36,11 @@ const colorThemes = {
   nodejs: { glow: '#22c55e', glowSoft: 'rgba(34, 197, 94, 0.4)', pedestal: '#052e16', ring: '#4ade80' },
   express: { glow: '#a855f7', glowSoft: 'rgba(168, 85, 247, 0.4)', pedestal: '#2e1065', ring: '#c084fc' },
   mongodb: { glow: '#10b981', glowSoft: 'rgba(16, 185, 129, 0.4)', pedestal: '#064e3b', ring: '#34d399' },
+  aws: { glow: '#f97316', glowSoft: 'rgba(249, 115, 22, 0.45)', pedestal: '#431407', ring: '#fb923c' },
+  azure: { glow: '#0284c7', glowSoft: 'rgba(2, 132, 199, 0.45)', pedestal: '#082f49', ring: '#38bdf8' },
+  googlecloud: { glow: '#4285f4', glowSoft: 'rgba(66, 133, 244, 0.45)', pedestal: '#172554', ring: '#60a5fa' },
+  docker: { glow: '#0ea5e9', glowSoft: 'rgba(14, 165, 233, 0.45)', pedestal: '#082f49', ring: '#38bdf8' },
+  clouddeployment: { glow: '#06b6d4', glowSoft: 'rgba(6, 182, 212, 0.45)', pedestal: '#083344', ring: '#22d3ee' },
   restapi: { glow: '#38bdf8', glowSoft: 'rgba(56, 189, 248, 0.4)', pedestal: '#082f49', ring: '#7dd3fc' },
   git: { glow: '#a855f7', glowSoft: 'rgba(168, 85, 247, 0.4)', pedestal: '#3b0764', ring: '#c084fc' },
   msoffice: { glow: '#059669', glowSoft: 'rgba(5, 150, 105, 0.4)', pedestal: '#064e3b', ring: '#10b981' },
@@ -460,6 +470,171 @@ const EmblemGraphic = ({ type, isHovered }) => {
           </defs>
           <path d="M 32 6 L 52 14 L 52 32 C 52 46, 32 56, 32 56 C 32 56, 12 46, 12 32 L 12 14 Z" fill="url(#qcGrad)" stroke="#99f6e4" strokeWidth="1.5" />
           <path d="M 22 30 L 29 38 L 43 22" fill="none" stroke="#ffffff" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.4))" />
+        </svg>
+      );
+
+    case 'aws':
+      return (
+        <svg viewBox="0 0 64 64" className="w-full h-full drop-shadow-[0_0_14px_rgba(249,115,22,0.9)]">
+          <defs>
+            <linearGradient id="awsCloudGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#ffb703" />
+              <stop offset="100%" stopColor="#ea580c" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M 18 40 A 10 10 0 0 1 20 22 A 14 14 0 0 1 44 22 A 10 10 0 0 1 48 40 Z"
+            fill="url(#awsCloudGrad)"
+            stroke="#fed7aa"
+            strokeWidth="1.2"
+            filter="drop-shadow(0 4px 6px rgba(0,0,0,0.4))"
+          />
+          <text
+            x="32"
+            y="34"
+            fill="#ffffff"
+            fontSize="11"
+            fontWeight="900"
+            textAnchor="middle"
+            fontFamily="system-ui, sans-serif"
+            letterSpacing="1"
+            filter="drop-shadow(0 1px 2px rgba(0,0,0,0.6))"
+          >
+            AWS
+          </text>
+          <path
+            d="M 23 38 Q 32 44 41 38"
+            fill="none"
+            stroke="#fbbf24"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+          />
+          <polygon points="41,38 38,35 39,40" fill="#fbbf24" />
+        </svg>
+      );
+
+    case 'azure':
+      return (
+        <svg viewBox="0 0 64 64" className="w-full h-full drop-shadow-[0_0_14px_rgba(2,132,199,0.9)]">
+          <defs>
+            <linearGradient id="azGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#70d6ff" />
+              <stop offset="100%" stopColor="#0078d4" />
+            </linearGradient>
+            <linearGradient id="azGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#0078d4" />
+              <stop offset="100%" stopColor="#004c87" />
+            </linearGradient>
+            <linearGradient id="azGrad3" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stopColor="#38bdf8" />
+              <stop offset="100%" stopColor="#0284c7" />
+            </linearGradient>
+          </defs>
+          <path d="M 16 48 L 29 14 C 29.5 12.5 31.5 12.5 32 14 L 38 27 L 27 48 Z" fill="url(#azGrad1)" />
+          <path d="M 33 24 L 43 44 C 44 46 42.5 48 40.5 48 L 21 48 L 28 34 L 41 34 Z" fill="url(#azGrad2)" />
+          <path d="M 28 34 L 48 34 L 38 18 C 37 16 35 16 34 18 Z" fill="url(#azGrad3)" opacity="0.85" />
+          <polygon points="26,40 38,40 33,30" fill="#ffffff" opacity="0.35" />
+        </svg>
+      );
+
+    case 'googlecloud':
+      return (
+        <svg viewBox="0 0 64 64" className="w-full h-full drop-shadow-[0_0_14px_rgba(66,133,244,0.85)]">
+          <defs>
+            <linearGradient id="gcpBlue" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#60a5fa" />
+              <stop offset="100%" stopColor="#2563eb" />
+            </linearGradient>
+            <linearGradient id="gcpRed" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#f87171" />
+              <stop offset="100%" stopColor="#dc2626" />
+            </linearGradient>
+            <linearGradient id="gcpYellow" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#fde047" />
+              <stop offset="100%" stopColor="#ca8a04" />
+            </linearGradient>
+            <linearGradient id="gcpGreen" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#4ade80" />
+              <stop offset="100%" stopColor="#16a34a" />
+            </linearGradient>
+          </defs>
+          <path d="M 28 16 A 12 12 0 0 1 44 22 L 36 29 A 6 6 0 0 0 28 24 Z" fill="url(#gcpBlue)" />
+          <path d="M 44 22 A 10 10 0 0 1 48 38 L 40 35 A 6 6 0 0 0 36 29 Z" fill="url(#gcpRed)" />
+          <path d="M 48 38 L 24 44 A 8 8 0 0 1 20 38 L 40 35 Z" fill="url(#gcpYellow)" />
+          <path d="M 20 38 A 10 10 0 0 1 28 16 L 28 24 A 6 6 0 0 0 24 35 Z" fill="url(#gcpGreen)" />
+          <rect x="25" y="27" width="14" height="8" rx="4" fill="#ffffff" opacity="0.9" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.3))" />
+          <text x="32" y="33.5" fill="#1e293b" fontSize="6.5" fontWeight="900" textAnchor="middle" fontFamily="system-ui, sans-serif">GCP</text>
+        </svg>
+      );
+
+    case 'docker':
+      return (
+        <svg viewBox="0 0 64 64" className="w-full h-full drop-shadow-[0_0_14px_rgba(14,165,233,0.9)]">
+          <defs>
+            <linearGradient id="whaleGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#38bdf8" />
+              <stop offset="100%" stopColor="#0284c7" />
+            </linearGradient>
+            <linearGradient id="containerGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#67e8f9" />
+              <stop offset="100%" stopColor="#0891b2" />
+            </linearGradient>
+          </defs>
+          <rect x="26" y="16" width="6" height="5" rx="0.8" fill="url(#containerGrad)" stroke="#e0f2fe" strokeWidth="0.5" />
+          <rect x="19" y="22" width="6" height="5" rx="0.8" fill="url(#containerGrad)" stroke="#e0f2fe" strokeWidth="0.5" />
+          <rect x="26" y="22" width="6" height="5" rx="0.8" fill="url(#containerGrad)" stroke="#e0f2fe" strokeWidth="0.5" />
+          <rect x="33" y="22" width="6" height="5" rx="0.8" fill="url(#containerGrad)" stroke="#e0f2fe" strokeWidth="0.5" />
+          <rect x="12" y="28" width="6" height="5" rx="0.8" fill="url(#containerGrad)" stroke="#e0f2fe" strokeWidth="0.5" />
+          <rect x="19" y="28" width="6" height="5" rx="0.8" fill="url(#containerGrad)" stroke="#e0f2fe" strokeWidth="0.5" />
+          <rect x="26" y="28" width="6" height="5" rx="0.8" fill="url(#containerGrad)" stroke="#e0f2fe" strokeWidth="0.5" />
+          <rect x="33" y="28" width="6" height="5" rx="0.8" fill="url(#containerGrad)" stroke="#e0f2fe" strokeWidth="0.5" />
+          <rect x="40" y="28" width="6" height="5" rx="0.8" fill="url(#containerGrad)" stroke="#e0f2fe" strokeWidth="0.5" />
+          <path
+            d="M 8 35 C 8 35, 12 48, 30 48 C 48 48, 52 38, 54 36 C 56 34, 58 35, 58 35 C 57 32, 54 30, 50 32 C 48 30, 44 32, 44 34 L 8 34 Z"
+            fill="url(#whaleGrad)"
+            stroke="#bae6fd"
+            strokeWidth="0.8"
+            filter="drop-shadow(0 3px 5px rgba(0,0,0,0.4))"
+          />
+          <circle cx="48" cy="36" r="1.5" fill="#ffffff" />
+          <circle cx="48.5" cy="36" r="0.7" fill="#0f172a" />
+          <path d="M 52 28 Q 54 24 57 26" fill="none" stroke="#bae6fd" strokeWidth="1.2" strokeLinecap="round" />
+        </svg>
+      );
+
+    case 'clouddeployment':
+      return (
+        <svg viewBox="0 0 64 64" className="w-full h-full drop-shadow-[0_0_14px_rgba(6,182,212,0.9)]">
+          <defs>
+            <linearGradient id="cdCloud" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#38bdf8" />
+              <stop offset="100%" stopColor="#0891b2" />
+            </linearGradient>
+            <linearGradient id="rocketBody" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#ffffff" />
+              <stop offset="100%" stopColor="#cbd5e1" />
+            </linearGradient>
+            <linearGradient id="rocketFlame" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#fef08a" />
+              <stop offset="50%" stopColor="#f97316" />
+              <stop offset="100%" stopColor="#ef4444" />
+            </linearGradient>
+          </defs>
+          <path
+            d="M 14 44 A 8 8 0 0 1 18 28 A 12 12 0 0 1 42 28 A 10 10 0 0 1 50 44 Z"
+            fill="url(#cdCloud)"
+            stroke="#a5f3fc"
+            strokeWidth="1"
+            opacity="0.85"
+            filter="drop-shadow(0 3px 6px rgba(0,0,0,0.4))"
+          />
+          <polygon points="30,42 34,42 32,54" fill="url(#rocketFlame)" filter="drop-shadow(0 0 6px #f97316)" />
+          <polygon points="28,42 31,42 29,48" fill="#fbbf24" opacity="0.8" />
+          <polygon points="33,42 36,42 35,48" fill="#fbbf24" opacity="0.8" />
+          <path d="M 32 12 C 32 12, 38 20, 38 36 L 26 36 C 26 20, 32 12, 32 12 Z" fill="url(#rocketBody)" stroke="#e2e8f0" strokeWidth="0.8" />
+          <polygon points="26,30 20,38 26,38" fill="#0284c7" />
+          <polygon points="38,30 44,38 38,38" fill="#0284c7" />
+          <circle cx="32" cy="24" r="3" fill="#06b6d4" stroke="#ffffff" strokeWidth="1" />
         </svg>
       );
 

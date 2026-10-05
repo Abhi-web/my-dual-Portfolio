@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { profileData } from '../../data/profile.js';
 import { useProfile } from '../../context/ProfileContext.jsx';
+import { AK3DIcon } from '../common/AK3DIcon.jsx';
 
 export const HeroVisual = ({ onOpenResume, onContactClick }) => {
   const { profileMode, setProfileMode, stealthMode } = useProfile();
@@ -45,10 +46,7 @@ export const HeroVisual = ({ onOpenResume, onContactClick }) => {
         {/* Card Header: Identity & Credential Badges */}
         <div className="flex items-center justify-between gap-3 pb-4 border-b border-white/10">
           <div className="flex items-center gap-3">
-            <div className="relative w-11 h-11 rounded-xl bg-gradient-to-br from-brand-500/25 to-dark-900 border border-brand-400/40 flex items-center justify-center text-brand-300 font-mono font-bold text-base shadow-inner">
-              AK
-              <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-500 border-2 border-dark-950" />
-            </div>
+            <AK3DIcon size="md" />
             <div>
               <div className="flex items-center gap-2">
                 <div className="text-base font-bold text-white tracking-tight">
