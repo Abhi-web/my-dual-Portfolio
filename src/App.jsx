@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ProfileProvider, useProfile } from './context/ProfileContext.jsx';
 import { Navbar } from './components/Navbar/Navbar.jsx';
 import { Hero } from './components/Hero/Hero.jsx';
@@ -101,6 +101,31 @@ function PortfolioContent({
   );
 }
 
+// Mapping of direct pathnames to portfolio section anchors
+const SECTION_PATH_MAP = {
+  '/': 'home',
+  '/home': 'home',
+  '/about': 'about',
+  '/skills': 'skills',
+  '/career-profile': 'career-profile',
+  '/profile': 'career-profile',
+  '/experience': 'experience',
+  '/projects': 'projects',
+  '/professional-strengths': 'professional-strengths',
+  '/strengths': 'professional-strengths',
+  '/bpo': 'professional-strengths',
+  '/services': 'services',
+  '/resume-preview': 'resume-preview',
+  '/resume': 'resume-preview',
+  '/contact': 'contact',
+};
+
+const normalizePath = (path) => {
+  if (!path) return '/';
+  const clean = path.replace(/\/+$/, '') || '/';
+  return clean.toLowerCase();
+};
+
 export function App() {
   const [resumeModalOpen, setResumeModalOpen] = useState(false);
   const [selectedResumeForModal, setSelectedResumeForModal] = useState(null);
@@ -117,9 +142,41 @@ export function App() {
 
   const [is404, setIs404] = useState(() => {
     if (typeof window === 'undefined') return false;
-    const path = window.location.pathname;
-    return path !== '/' && path !== '' && path !== '/index.html';
+    const path = normalizePath(window.location.pathname);
+    if (path === '/' || path === '/index.html') return false;
+    return !SECTION_PATH_MAP[path];
   });
+
+  // Smooth scroll to target section when accessed directly via URL or on refresh
+  useEffect(() => {
+    if (typeof window === 'undefined' || is404) return;
+    const path = normalizePath(window.location.pathname);
+    const targetSection = SECTION_PATH_MAP[path];
+    if (targetSection && targetSection !== 'home') {
+      const timer = setTimeout(() => {
+        const el = document.getElementById(targetSection);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 150);
+      return () => clearTimeout(timer);
+    }
+  }, [is404]);
+
+  // Handle browser back and forward button events
+  useEffect(() => {
+    const handlePopState = () => {
+      const path = normalizePath(window.location.pathname);
+      const isKnown = path === '/' || path === '/index.html' || Boolean(SECTION_PATH_MAP[path]);
+      setIs404(!isKnown);
+      if (isKnown && SECTION_PATH_MAP[path] && SECTION_PATH_MAP[path] !== 'home') {
+        const el = document.getElementById(SECTION_PATH_MAP[path]);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   if (is404) {
     return (
