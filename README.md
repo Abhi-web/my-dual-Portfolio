@@ -31,7 +31,9 @@
 
 ### 📸 Live Preview: Code-Based 3D Social Hub
 <p align="center">
-  <img src="screenshots/3d_social_hub.png" alt="3D Social Hub - WhatsApp, Instagram, LinkedIn, GitHub" width="100%" />
+     <img src="screenshots/navbar_and_hero.png" alt="3D Social Hub - WhatsApp, Instagram, LinkedIn, GitHub" width="100%" />
+      <img src="screenshots/3d_social_hub.png" alt="3D Social Hub - WhatsApp, Instagram, LinkedIn, GitHub" width="100%" />
+
 </p>
 
 </div>
